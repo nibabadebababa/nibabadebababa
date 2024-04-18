@@ -19,3 +19,6 @@
   <img width="100%" alt="github-snake" src="./assets/github-snake.svg" />
 </picture>
 
+<picture>
+  <img src="/github-metrics.svg" alt="Metrics">
+</picture>
