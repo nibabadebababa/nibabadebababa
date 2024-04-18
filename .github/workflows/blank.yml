@@ -13,7 +13,7 @@ jobs:
   github-metrics:
     runs-on: ubuntu-latest
     environment: 
-      name: main
+      name: main 
     permissions:
       contents: write
     steps:
