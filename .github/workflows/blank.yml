@@ -5,13 +5,15 @@ jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
-      - name: metrics-Half-year-calendar
+      - name: Full-year calendar
         uses: lowlighter/metrics@latest
         with:
+          filename: metrics.plugin.isocalendar.fullyear.svg
+          token: ${{ secrets.METRICS_TOKEN }}
           base: ""
-          filename: assets/metrics.plugin.isocalendar.svg
-          token: ${{ github.token }}
           plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
   # 工作流触发时机, see: https://docs.github.com/zh/actions/using-workflows/triggering-a-workflow
   # 触发条件修改为: 当 main 分支有 push 操作 || 每天 0 点
 
