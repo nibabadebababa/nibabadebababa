@@ -1,31 +1,40 @@
-# Visit https://github.com/lowlighter/metrics#-documentation for full reference
-name: Metrics
-on:
-  # Schedule updates (each hour)
-  schedule: [{cron: "0 * * * *"}]
-  # Lines below let you run workflow manually and on each commit
-  workflow_dispatch:
-  push: {branches: ["master", "main"]}
-jobs:
-  github-metrics:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: lowlighter/metrics@latest
-        with:
-          # Your GitHub token
-          # The following scopes are required:
-          #  - public_access (default scope)
-          # The following additional scopes may be required:
-          #  - read:org      (for organization related metrics)
-          #  - read:user     (for user related data)
-          #  - read:packages (for some packages related data)
-          #  - repo          (optional, if you want to include private repositories)
-          token: ${{ secrets.METRICS_TOKEN }}
+# 工作流名称
+name: Generate Snake
 
-          # Options
-          user: nibabadebababa
-          template: classic
-          base: header, activity, community, repositories, metadata
-          config_timezone: Asia/Shanghai
+# 工作流触发时机, see: https://docs.github.com/zh/actions/using-workflows/triggering-a-workflow
+# 触发条件修改为: 当 main 分支有 push 操作 || 每天 0 点
+on:
+  push:
+    branches: 
+      - main  
+  
+  schedule:
+    - cron:  "0 0 * * *" 
+
+# 作业, see: https://docs.github.com/zh/actions/using-jobs/using-jobs-in-a-workflow
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 使用 actions/checkout, see: https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # 使用 Platane/snk 生成图片(贪吃蛇), see: https://github.com/Platane/snk
+      - name: Generate Snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            assets/github-snake.svg
+            assets/github-snake-dark.svg?palette=github-dark
+            assets/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+
+      # 使用 EndBug/add-and-commit 提交代码, see: https://github.com/EndBug/add-and-commit
+      - name: Push to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          branch: main
+          default_author: github_actions
+          message: 'Generate Contribution Snake'
