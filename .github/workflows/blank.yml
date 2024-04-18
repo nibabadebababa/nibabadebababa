@@ -10,12 +10,7 @@ on:
     - cron:  "0 0 * * *" 
     
 jobs:
-# 生成统计图, see: https://github.com/lowlighter/metrics
-  github-metrics:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Metrics embed
-        uses: lowlighter/metrics@v3.34
+
             
 
 
