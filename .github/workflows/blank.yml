@@ -14,14 +14,9 @@ jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
-      - name: Full-year calendar
-        uses: nibabadebababa/nibabadebababa@main
-        with:
-          filename: metrics.plugin.isocalendar.fullyear.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
+      - name: Metrics embed
+        uses: lowlighter/metrics@v3.34
+            
 
 
   # 工作流触发时机, see: https://docs.github.com/zh/actions/using-workflows/triggering-a-workflow
