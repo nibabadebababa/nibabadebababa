@@ -1,5 +1,14 @@
 # 工作流名称
 name: Generate
+
+on:
+  push:
+    branches: 
+      - main  
+  
+  schedule:
+    - cron:  "0 0 * * *" 
+    
 jobs:
 # 生成统计图, see: https://github.com/lowlighter/metrics
   github-metrics:
@@ -41,13 +50,7 @@ jobs:
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
         with:
-  on:
-    push:
-      branches: 
-        - main  
-    
-    schedule:
-      - cron:  "0 0 * * *" 
           branch: main
           default_author: github_actions
           message: 'Generate Contribution Snake'
+
