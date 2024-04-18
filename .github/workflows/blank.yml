@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Full-year calendar
-        uses: nibabadebababa/nibabadebababa@latest
+        uses: nibabadebababa/nibabadebababa@main
         with:
           filename: metrics.plugin.isocalendar.fullyear.svg
           token: ${{ secrets.METRICS_TOKEN }}
