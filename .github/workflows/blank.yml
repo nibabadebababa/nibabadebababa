@@ -10,7 +10,28 @@ on:
     - cron:  "0 0 * * *" 
     
 jobs:
-
+  github-metrics:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - uses: lowlighter/metrics@latest
+          with:
+            # Your GitHub token
+            # The following scopes are required:
+            #  - public_access (default scope)
+            # The following additional scopes may be required:
+            #  - read:org      (for organization related metrics)
+            #  - read:user     (for user related data)
+            #  - read:packages (for some packages related data)
+            #  - repo          (optional, if you want to include private repositories)
+            token: ${{ secrets.METRICS_TOKEN }}
+  
+            # Options
+            user: nibabadebababa
+            template: classic
+            base: header, activity, community, repositories, metadata
+            config_timezone: Asia/Shanghai
             
 
 
